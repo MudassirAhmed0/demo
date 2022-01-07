@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+
+</head>
+
+<body>
+    <div id="card-container"></div>
+    <button id="card-button" type="button">Pay now</button>
+    <script>
+
+
+        document
+            .getElementById("card-button")
+            .addEventListener("click", async function () {
+                const applicationId = "sandbox-sq0idb-sK_UwhSmddexTZqfoSBIWA";
+                const locationId = "LC5KAAR4VEYWE";
+                const payments = Square.payments(applicationId, locationId);
+                const card = await payments.card();
+
+                await card.attach("#card-container");
+                const { token } = await card.tokenize();
+                // create payment with token as source_id in /v2/payments
+            });
+    </script>
+</body>
+
+</html>
